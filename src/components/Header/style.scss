@@ -1,0 +1,29 @@
+@import '../../variables.scss';
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('../../assets/bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 30rem;
+  img {
+    width: 25rem;
+  }
+  @media screen and (max-width: $break-sm) {
+    background-position: 15% 45%;
+    background-size: 250%;
+    background-repeat: no-repeat;
+    height: 12rem;
+    img {
+      width: 15.625rem;
+    }
+  }
+}

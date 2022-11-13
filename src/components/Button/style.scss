@@ -1,0 +1,18 @@
+button.btn {
+  background: #12555F;
+  border-radius: 50px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  &:disabled {
+    opacity: 0.3;
+    
+  }
+}

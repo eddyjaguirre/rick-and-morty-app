@@ -1,0 +1,30 @@
+@import "../../variables.scss";
+
+.search-bar {
+  background-color: $color-500;
+  color: $white;
+  border: solid 2px $white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: 32rem;
+  button {
+    background-color: transparent;
+    & > img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    font-size: 1.125rem;
+    color: $white;
+    width: 100%;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@import "./variables.scss";
+
+.hide-mobile {
+  @media screen and (max-width: $break-sm) {
+    display: none;
+  }
+}

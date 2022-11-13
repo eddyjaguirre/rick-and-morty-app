@@ -1,0 +1,62 @@
+@import '../../variables.scss';
+
+.welcome {
+  height: 100vh;
+  width: 100%;
+  background-color: black;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('../../assets/bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  &-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: $break-sm) {
+      width: 92%;
+      margin: auto;
+    }
+    .rnm-logo {
+      width: 40rem;
+      @media screen and (max-width: $break-sm) {
+        height: auto;
+        width: 80%;
+      }
+    }
+    h2, p {
+      font-weight: 400;
+      text-align: center;
+    }
+    h2 {
+      font-size: 40px;
+      line-height: 49px;
+      @media screen and (max-width: $break-sm) {
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 30px;
+        width: 200px;
+      }
+    }
+    p {
+      font-size: 18px;
+      line-height: 30px;
+      margin-bottom: 1.875rem;
+      max-width: 58%;
+      @media screen and (max-width: $break-sm) {
+        font-size: 16px;
+        line-height: 150%;
+        margin-bottom: 8.75rem;
+        max-width: 100%;
+      }
+    }
+  }
+}
