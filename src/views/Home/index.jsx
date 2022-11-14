@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import CharacterCard from '@/components/CharacterCard';
 import FavButton from '@/components/FavButton';
 import Modal from '@/components/Modal';
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import categoriesContext from '@/context/categoriesContext';
 import searchContext from '@/context/searchContext';
 import Icon from '@mdi/react';
@@ -76,7 +76,10 @@ function Home() {
   const handlePage = (p) => {
     setPage(p);
     localStorage.setItem('page', p);
+    containerRef.current.scrollIntoView({behavior: 'smooth'});
   }
+
+  const containerRef = useRef(null)
 
   return (
     <Layout>
@@ -87,7 +90,7 @@ function Home() {
           handleClick={() => setSelectFaved(!selectFaved)}
         />
       </section> */}
-      <section className="home-container">
+      <section className="home-container" ref={containerRef}>
          {
           characters.map(character => {
             return(
