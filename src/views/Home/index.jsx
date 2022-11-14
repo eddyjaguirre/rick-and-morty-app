@@ -1,5 +1,6 @@
 import './style.scss'
 import Layout from '@/components/Layout';
+import Welcome from '@/views/Welcome';
 import CharacterCard from '@/components/CharacterCard';
 import FavButton from '@/components/FavButton';
 import Modal from '@/components/Modal';
@@ -12,10 +13,15 @@ import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 function Home() {
   const [characters, setCharacters] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState({});
-  const [page, setPage] = useState(Number(localStorage.getItem('page')) || 1);
-  const [faved, setFaved] = useState([1, 2]);
-  const [selectFaved, setSelectFaved] = useState(false);
+  const [page, setPage] = useState(
+    Number(localStorage.getItem('page')) || 1
+  );
   const [character, setCharacter] = useState(null);
+  const [showWelcome, setShowWelcome] = useState(
+    localStorage.getItem('showWelcome') || ''
+  );
+  // const [selectFaved, setSelectFaved] = useState(false);
+  // const [faved, setFaved] = useState([1, 2]);
 
   const categories = useContext(categoriesContext)
   const searchCtx = useContext(searchContext)
@@ -40,7 +46,7 @@ function Home() {
         setPaginationInfo(json.info);
         setCharacters(json.results);
       });
-  }, [page, selectFaved, categories])
+  }, [page, categories])
 
   useEffect(() => {
     const url = new URL('https://rickandmortyapi.com/api/character');
@@ -79,51 +85,62 @@ function Home() {
     containerRef.current.scrollIntoView({behavior: 'smooth'});
   }
 
+  const handleContinue = () => {
+    localStorage.setItem('showWelcome', false);
+    setShowWelcome(false)
+  }
+
   const containerRef = useRef(null)
 
   return (
-    <Layout>
-      {/* <section className='home-faved'>
-        <span>Mostrar favoritos:</span>
-        <FavButton
-          faved={selectFaved}
-          handleClick={() => setSelectFaved(!selectFaved)}
-        />
-      </section> */}
-      <section className="home-container" ref={containerRef}>
-         {
-          characters.map(character => {
-            return(
-              <CharacterCard
-                key={character.id}
-                character={character}
-                faved={faved.includes(character.id)}
-                handleClick={() => fetchCharacter(character.id)}
-              />
-            )
-          })
-         }
-      </section>
-      <section className='home-pagination'>
-        <button
-          disabled={paginationInfo.prev === null}
-          onClick={() => handlePage(Number(page) - 1)}
-        >
-          <Icon size={2} path={mdiChevronLeft}/>
-        </button>
-        <p>Página {page}</p>
-        <button
-          disabled={paginationInfo.next === null}
-          onClick={() => handlePage(Number(page) + 1)}
-        >
-          <Icon size={2} path={mdiChevronRight}/>
-        </button>
-      </section>
-      <Modal
-        character={character}
-        closeModal={() => setCharacter(null)}
+    <>
+      <Welcome
+        show={showWelcome}
+        handleContinue={() => handleContinue()}
       />
-    </Layout>
+      <Layout>
+        {/* <section className='home-faved'>
+          <span>Mostrar favoritos:</span>
+          <FavButton
+            faved={selectFaved}
+            handleClick={() => setSelectFaved(!selectFaved)}
+          />
+        </section> */}
+        <section className="home-container" ref={containerRef}>
+          {
+            characters.map(character => {
+              return(
+                <CharacterCard
+                  key={character.id}
+                  character={character}
+                  // faved={faved.includes(character.id)}
+                  handleClick={() => fetchCharacter(character.id)}
+                />
+              )
+            })
+          }
+        </section>
+        <section className='home-pagination'>
+          <button
+            disabled={paginationInfo.prev === null}
+            onClick={() => handlePage(Number(page) - 1)}
+          >
+            <Icon size={2} path={mdiChevronLeft}/>
+          </button>
+          <p>Página {page}</p>
+          <button
+            disabled={paginationInfo.next === null}
+            onClick={() => handlePage(Number(page) + 1)}
+          >
+            <Icon size={2} path={mdiChevronRight}/>
+          </button>
+        </section>
+        <Modal
+          character={character}
+          closeModal={() => setCharacter(null)}
+        />
+      </Layout>
+    </>
   )
 }
 
