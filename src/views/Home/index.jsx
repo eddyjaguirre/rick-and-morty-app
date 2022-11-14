@@ -6,6 +6,8 @@ import Modal from '@/components/Modal';
 import { useState, useEffect, useContext } from 'react'
 import categoriesContext from '@/context/categoriesContext';
 import searchContext from '@/context/searchContext';
+import Icon from '@mdi/react';
+import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 
 function Home() {
   const [characters, setCharacters] = useState([]);
@@ -78,13 +80,13 @@ function Home() {
 
   return (
     <Layout>
-      <section className='home-faved'>
+      {/* <section className='home-faved'>
         <span>Mostrar favoritos:</span>
         <FavButton
           faved={selectFaved}
           handleClick={() => setSelectFaved(!selectFaved)}
         />
-      </section>
+      </section> */}
       <section className="home-container">
          {
           characters.map(character => {
@@ -99,16 +101,20 @@ function Home() {
           })
          }
       </section>
-      <section>
+      <section className='home-pagination'>
         <button
           disabled={paginationInfo.prev === null}
           onClick={() => handlePage(Number(page) - 1)}
-        >prev</button>
-        <p>Pagina: {page}</p>
+        >
+          <Icon size={2} path={mdiChevronLeft}/>
+        </button>
+        <p>Página {page}</p>
         <button
           disabled={paginationInfo.next === null}
           onClick={() => handlePage(Number(page) + 1)}
-        >next</button>
+        >
+          <Icon size={2} path={mdiChevronRight}/>
+        </button>
       </section>
       <Modal
         character={character}

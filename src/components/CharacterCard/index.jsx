@@ -23,11 +23,11 @@ function CharacterCard(props) {
     >
       <div className='character-card_image'>
         <img src={character.image} alt={character.name} />
-        <div className="character-card_fav-button">
+        {/* <div className="character-card_fav-button">
           <FavButton
             faved={props.faved}
           />
-        </div>
+        </div> */}
       </div>
       <div className='character-card_details'>
         <section>

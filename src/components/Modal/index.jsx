@@ -63,11 +63,13 @@ function Modal(props) {
   return (
     <>
       {
-        character && 
-        <div className="modal_static">
+        character &&
+        <>
+          <div className="modal_static">
+          </div>
           <div
             className="modal_overlay"
-            >
+          >
             <div className="modal_content">
               <section className="modal_header">
                 <div className="modal_header__close-btn">
@@ -176,7 +178,7 @@ function Modal(props) {
               </section>
             </div>
           </div>
-        </div>
+        </>
       }
     </>
   )
