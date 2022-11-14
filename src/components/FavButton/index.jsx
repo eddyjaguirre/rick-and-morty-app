@@ -2,10 +2,15 @@ import './style.scss'
 
 function FavButton(props) {
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+    props.handleClick;
+  }
+
   return (
     <button
       className='btn-fav'
-      onClick={props.handleClick}
+      onClick={() => handleClick}
     >
       <img
         src={`src/assets/star${props.faved ? '-s':''}.svg`}

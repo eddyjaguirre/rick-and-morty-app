@@ -19,11 +19,14 @@ function CharacterCard(props) {
   return (
     <div
       className='character-card'
+      onClick={props.handleClick}
     >
       <div className='character-card_image'>
         <img src={character.image} alt={character.name} />
         <div className="character-card_fav-button">
-          <FavButton faved={props.faved}/>
+          <FavButton
+            faved={props.faved}
+          />
         </div>
       </div>
       <div className='character-card_details'>

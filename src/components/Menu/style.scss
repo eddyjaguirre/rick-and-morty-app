@@ -1,0 +1,34 @@
+@import "../../variables.scss";
+
+nav.menu {
+  background-color: $color-500;
+  .search-bar-container {
+    display: none;
+    @media screen and (max-width: $break-sm) {
+      display: block;
+    }
+  }
+  & > ul {
+    display: flex;
+    max-width: 62rem;
+    margin: auto;
+    color: $white;
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    & > li {
+      padding: 1.875rem 3.125rem;
+      font-size: 1.125rem;
+      font-weight: 400;
+      cursor: pointer;
+      &.selected {
+        font-weight: 700;
+        border-bottom: 4px solid $green;
+      }
+      @media screen and (max-width: $break-sm) {
+        position: absolute;
+        flex-direction: column;
+      }
+    }
+  }
+}

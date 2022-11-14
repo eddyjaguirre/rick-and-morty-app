@@ -2,16 +2,33 @@ import './style.scss'
 import Layout from '@/components/Layout';
 import CharacterCard from '@/components/CharacterCard';
 import FavButton from '@/components/FavButton';
-import { useState, useEffect } from 'react'
+import Modal from '@/components/Modal';
+import { useState, useEffect, useContext } from 'react'
+import categoriesContext from '@/context/categoriesContext';
+
 function Home() {
   const [characters, setCharacters] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState({});
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(Number(localStorage.getItem('page')) || 1);
   const [faved, setFaved] = useState([1, 2]);
   const [selectFaved, setSelectFaved] = useState(false);
+  const [character, setCharacter] = useState(null);
+
+  const categories = useContext(categoriesContext)
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character?page=${page}`, {
+    const url = new URL('https://rickandmortyapi.com/api/character');
+
+    const {selectedGender: gender, selectedStatus: status} = categories;
+    const params = {
+      page,
+      gender: gender,
+      status: status
+    }
+
+    url.search = new URLSearchParams(params).toString();
+    
+    fetch(url, {
       method: 'GET'
     })
       .then((res) => res.json())
@@ -19,7 +36,22 @@ function Home() {
         setPaginationInfo(json.info);
         setCharacters(json.results);
       });
-  }, [page, selectFaved])
+  }, [page, selectFaved, categories])
+
+  const fetchCharacter = (id) => {
+    fetch(`https://rickandmortyapi.com/api/character/${id}`, {
+      method: 'GET'
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setCharacter(json);
+      });
+  }
+
+  const handlePage = (p) => {
+    setPage(p);
+    localStorage.setItem('page', p);
+  }
 
   return (
     <Layout>
@@ -38,19 +70,27 @@ function Home() {
                 key={character.id}
                 character={character}
                 faved={faved.includes(character.id)}
+                handleClick={() => fetchCharacter(character.id)}
               />
             )
           })
          }
       </section>
-      <button
-        disabled={paginationInfo.prev === null}
-        onClick={() => setPage(page - 1)}
-      >prev</button>
-      <button
-        disabled={paginationInfo.next === null}
-        onClick={() => setPage(page + 1)}
-      >next</button>
+      <section>
+        <button
+          disabled={paginationInfo.prev === null}
+          onClick={() => handlePage(Number(page) - 1)}
+        >prev</button>
+        <p>Pagina: {page}</p>
+        <button
+          disabled={paginationInfo.next === null}
+          onClick={() => handlePage(Number(page) + 1)}
+        >next</button>
+      </section>
+      <Modal
+        character={character}
+        closeModal={() => setCharacter(null)}
+      />
     </Layout>
   )
 }
