@@ -11,12 +11,17 @@ function CategoriesWrapper(props) {
     localStorage.getItem('selectedStatus') || 
     ''
   )
+  const [page, setPage] = useState(
+    Number(localStorage.getItem('page')) || 1
+  )
   
   const value = useMemo(() => ({
     selectedGender,
     setSelectedGender,
     selectedStatus,
-    setSelectedStatus
+    setSelectedStatus,
+    page,
+    setPage
   }), [selectedGender, selectedStatus]);
   return (
     <categoriesContext.Provider value={value}>

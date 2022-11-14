@@ -9,14 +9,15 @@ function App() {
   return (
     <CategoriesWrapper>
       <SearchWrapper>
-        <BrowserRouter>
+        <Home />
+        {/* <BrowserRouter>
           <Routes>
             <Route
               path='/'
               element={<Home/>}
             />
           </Routes>
-        </BrowserRouter>
+        </BrowserRouter> */}
       </SearchWrapper>
     </CategoriesWrapper>
   )

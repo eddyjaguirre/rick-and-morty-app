@@ -1,0 +1,16 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5.625rem 0;
+  gap: 1.25rem;
+  & > h4 {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  & > p {
+    font-size: 1.125rem;
+    font-weight: 400;
+  }
+}
