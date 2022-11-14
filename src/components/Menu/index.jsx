@@ -1,7 +1,10 @@
 import './style.scss';
 import SearchBar from '@/components/SearchBar';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import categoriesContext from '@/context/categoriesContext';
+import { mdiMenu } from '@mdi/js';
+import Icon from '@mdi/react';
+
 
 function Menu() {
   const genderList = [
@@ -26,9 +29,12 @@ function Menu() {
   } = useContext(categoriesContext);
 
   const handleGender = (g) => {
+    setShow(false);
     setSelectedGender(g);
     localStorage.setItem('selectedGender', g)
   }
+
+  const [show, setShow] = useState(false)
 
   return(
     <>
@@ -36,7 +42,16 @@ function Menu() {
         <div className='search-bar-container'>
           <SearchBar />
         </div>
-        <ul>
+        <button
+          className='menu-button'
+          onClick={() => setShow(!show)}
+        >
+          <Icon
+            size={1.5}
+            path={mdiMenu}
+          />
+        </button>
+        <ul className={show ? 'visible' : ''}>
           {
             genderList.map((gender) => {
               return (

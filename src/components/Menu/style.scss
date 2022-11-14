@@ -2,11 +2,9 @@
 
 nav.menu {
   background-color: $color-500;
-  .search-bar-container {
+  .search-bar-container,
+  button.menu-button {
     display: none;
-    @media screen and (max-width: $break-sm) {
-      display: block;
-    }
   }
   & > ul {
     display: flex;
@@ -25,9 +23,38 @@ nav.menu {
         font-weight: 700;
         border-bottom: 4px solid $green;
       }
-      @media screen and (max-width: $break-sm) {
-        position: absolute;
-        flex-direction: column;
+    }
+  }
+  @media screen and (max-width: $break-sm) {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    position: relative;
+    .search-bar-container,
+    button.menu-button {
+      display: block;
+    }
+    .search-bar-container {
+      padding: 1.25rem 0;
+      width: 66%;
+    }
+    button.menu-button {
+      background-color: transparent;
+      padding: 0 1rem;
+    }
+    & > ul {
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      background-color: $color-500;
+      right: 0;
+      z-index: 8;
+      top: 5.75rem;
+      padding: 0.5rem;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      &.visible {
+        display: flex;
       }
     }
   }

@@ -138,7 +138,10 @@ function Modal(props) {
                     episodes.length > 0 && 
                     episodes.map(ep => {
                       return (
-                        <div className="modal_info__episode-card">
+                        <div
+                          className="modal_info__episode-card"
+                          key={ep.id}
+                        >
                           <div className="modal_info__card-title">
                             <h6>{ep.name}</h6>
                           </div>

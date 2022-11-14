@@ -5,6 +5,7 @@ import FavButton from '@/components/FavButton';
 import Modal from '@/components/Modal';
 import { useState, useEffect, useContext } from 'react'
 import categoriesContext from '@/context/categoriesContext';
+import searchContext from '@/context/searchContext';
 
 function Home() {
   const [characters, setCharacters] = useState([]);
@@ -15,6 +16,7 @@ function Home() {
   const [character, setCharacter] = useState(null);
 
   const categories = useContext(categoriesContext)
+  const searchCtx = useContext(searchContext)
 
   useEffect(() => {
     const url = new URL('https://rickandmortyapi.com/api/character');
@@ -37,6 +39,27 @@ function Home() {
         setCharacters(json.results);
       });
   }, [page, selectFaved, categories])
+
+  useEffect(() => {
+    const url = new URL('https://rickandmortyapi.com/api/character');
+    
+    const { search } = searchCtx; 
+    
+    const params = {
+      name: search
+    }
+
+    url.search = new URLSearchParams(params).toString();
+    
+    fetch(url, {
+      method: 'GET'
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        // setPaginationInfo(json.info);
+        setCharacters(json.results);
+      });
+  }, [searchCtx])
 
   const fetchCharacter = (id) => {
     fetch(`https://rickandmortyapi.com/api/character/${id}`, {
